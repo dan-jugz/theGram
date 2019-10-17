@@ -4,7 +4,7 @@ from datetime import datetime
 from django.utils import timezone
 from .models import Post 
 from .forms import PostForm 
-from django.views.generic import ListView,CreateView,DetailView,UpdateView,DeleteView,
+from django.views.generic import ListView,CreateView,DetailView,UpdateView,DeleteView
 
 # Create your views here.
 class PostListView(ListView):
