@@ -11,8 +11,10 @@
         </div>
         <div class="contact_icons">
             <a href="/" class="explore"><i class="fa-compass far"></i></a>
-            <a href="/" class="likes"><i class="fa-heart far"></i></a>
-            <a href="/" class="profile"><i class="fa-user far"></i></a>
+            {% if user.is_authenticated %}
+            <a href="#"> <i class="far fa-heart"></i> </a>
+            <a href="{% url 'profile' %}"> <i class="far fa-user"></i> </a>
+            {% endif %}
         </div>
     </div>
 </header>
