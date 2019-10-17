@@ -22,5 +22,8 @@ def register(request):
     return render(request, 'users/register.html', {'form': form})
 
 
-
+#The decoratior add functionality to the function is this case the login required functionality
+@login_required
+def profile(request):
+    return render(request, 'users/profile.html')
 
