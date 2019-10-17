@@ -1,3 +1,5 @@
+{% load bootstrap4%}
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -10,9 +12,9 @@
     {% endif %}
 
     {% block styles %}
-        {% bootstrap_css%}
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-        <link rel="stylesheet" href="{% static 'css/insta.css'%}">
+    {% bootstrap_css%}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{% static 'css/insta.css'%}">
     {% endblock styles %}
 </head>
 <body>
