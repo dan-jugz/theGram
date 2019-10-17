@@ -1,19 +1,21 @@
 <header>
     <div class="navigation">
         <div class="instalogo">
-            <a href="/"><i class="fab fa-instagram"></i></a>
-            <a href="" class="v1"></a>
-            <a href="/">Instagram</a>
+            <a href="{% url 'insta:post_list' %}"><i class="fab fa-instagram"></i> </a>
+                <a class="vl"></a>
+                <a href="/">Instagrampy</a>
         </div>
         <div class="search_bar">
             <input type="text" placeholder="search">
-            <a href="" class="search"><i class="fa-search fas"></i></a>
+            <a href="search" class="fas fa-search"><i class="fa-search fas"></i></a>
         </div>
         <div class="contact_icons">
             <a href="/" class="explore"><i class="fa-compass far"></i></a>
-            {% if user.is_authenticated %}
             <a href="#"> <i class="far fa-heart"></i> </a>
-            <a href="{% url 'profile' %}"> <i class="far fa-user"></i> </a>
+            {% if request.user.is_authenticated %}
+            <a href="{% url 'user_profile' request.user.username %}"> <i class="far fa-user"></i> </a>
+            {% else %}
+            <a href="{% url 'login' %}"> <i class="far fa-user"></i> </a>
             {% endif %}
         </div>
     </div>
