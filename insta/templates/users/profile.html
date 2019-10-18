@@ -1,4 +1,4 @@
-{% extends 'insta/base.html' %}
+{% extends 'base.html' %}
 {% load crispy_forms_tags %}
 {% block content %}
     <div class="profile_page">
@@ -12,9 +12,9 @@
                     {% if request.user == user %}
                         <button type="button"><a href="{% url 'edit_profile' %}">Edit profile</a></button>
                     {% elif request.user.profile not in user.profile.followed_by.all %}
-                        <button type="button"><a href="{% url 'edit_profile' %}">Follow</a></button>
+                        <button type="button"><a class="follow_button" href="{% url 'follow_profile' user.id  %}" follow-href="{% url 'follow_profile' user.id %}" data-follow={{user.profile.followed_by.count}} >Follow</a></button>
                     {% elif request.user.profile in user.profile.followed_by.all %}
-                        <button type="button"><a href="{% url 'edit_profile' %}">Following</a></button>
+                        <button type="button"><a class="follow_button" href="{% url 'follow_profile' user.id %}" follow-href="{% url 'follow_profile' user.id %}" data-follow={{user.profile.followed_by.count}}  >Following</a></button>
                     {% endif %}
                     <button><i class="fas fa-cog"></i></button>
                 </div>
