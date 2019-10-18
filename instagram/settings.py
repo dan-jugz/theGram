@@ -12,6 +12,34 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 
 import os
 
+import dj_database_url  
+import django_heroku  
+from decouple import config, Csv  
+from dotenv import load_dotenv  
+  
+load_dotenv()
+
+
+MODE=config("MODE", default="dev")
+SECRET_KEY = config('SECRET_KEY')
+DEBUG = config('DEBUG', default=False, cast=bool)
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': config('DB_NAME'),
+        'USER': config('DB_USER'),
+        'PASSWORD': config('DB_PASSWORD'),
+        'HOST': config('DB_HOST'),
+        'PORT': '',
+    }
+    
+   }
+
+db_env = dj_database_url.config(conn_max_age=500)  
+DATABASES['default'].update(db_env)  
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -20,7 +48,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '3wr$g%l!r)6qdp#%p50djj7_=+a8t@e1bdq4rf7sz$ki_uzlyr'
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -52,6 +80,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'instagram.urls'
@@ -80,8 +109,10 @@ WSGI_APPLICATION = 'instagram.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'instantgram',
+        'USER':'daniel',
+        'PASSWORD':'watchlist',
     }
 }
 
@@ -110,7 +141,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Africa/Nairobi'
 
 USE_I18N = True
 
@@ -139,3 +170,5 @@ CRISPY_TEMPLATE_PACK='bootstrap4'
 
 LOGIN_REDIRECT_URL = 'insta:post_list'
 LOGIN_URL = 'login'
+
+django_heroku.settings(locals())
